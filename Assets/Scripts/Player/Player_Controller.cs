@@ -17,7 +17,6 @@ public class Player_Controller : MonoBehaviour
     // Variables
     private Vector2 movementDirection;
     private Vector2 mouseTurnValue;
-    private float cameraSmoothing;
 
     void OnEnable()
     {
@@ -30,7 +29,7 @@ public class Player_Controller : MonoBehaviour
     {
         inputManager.OnMoveEvent -= ReadMoveInputValue;
         inputManager.OnTurnEvent -= ReadMouseTurnValue;
-        inputManager.OnJumpEvent += Jump;
+        inputManager.OnJumpEvent -= Jump;
     }
 
     void Awake()
@@ -50,8 +49,6 @@ public class Player_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-
-        rb.angularVelocity = Vector3.zero;
     }
 
     #region -------Functions-------
@@ -92,7 +89,7 @@ public class Player_Controller : MonoBehaviour
     private void Turn()
     {
         rb.MoveRotation(
-            rb.rotation * Quaternion.Euler(0f, mouseTurnValue.x * inputManager.mouseSensitivity, 0f)
+            rb.rotation * Quaternion.Euler(0f, mouseTurnValue.x * inputManager.MouseSensitivity, 0f)
         );
 
         mouseTurnValue.x = 0f;
@@ -102,7 +99,7 @@ public class Player_Controller : MonoBehaviour
     private void Jump()
     {
         Debug.Log("Zıplıyor");
-        if (groundChecker.onGround)
+        if (groundChecker.OnGround)
         {
             rb.AddForce(Vector3.up * jumpPower * 1000, ForceMode.Force);
         }

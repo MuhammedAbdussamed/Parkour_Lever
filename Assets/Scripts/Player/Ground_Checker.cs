@@ -5,14 +5,15 @@ public class Ground_Checker : MonoBehaviour
     [Header("Raycast Settings")]
     [SerializeField] private float raycastDistance;
     [SerializeField] private LayerMask raycastLayers;
-    internal bool onGround;
-    
+    private bool onGround;
+    public bool OnGround => onGround;
+
     void FixedUpdate()
     {
         GroundCheck();
     }
         
-    void GroundCheck()
+    private void GroundCheck()
     {
         RaycastHit hit;
 

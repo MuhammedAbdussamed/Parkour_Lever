@@ -33,7 +33,7 @@ public class Camera : MonoBehaviour
 
     void TurnUpDown()
     {
-        xRotation -= mouseTurnValue.y * inputManager.mouseSensitivity;
+        xRotation -= mouseTurnValue.y * inputManager.MouseSensitivity;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);

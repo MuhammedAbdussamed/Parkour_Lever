@@ -6,7 +6,8 @@ public class Input_Manager : MonoBehaviour
 {
     [Header("Inputs")]
     [SerializeField] private InputActionAsset inputs;
-    [SerializeField] internal float mouseSensitivity;
+    [SerializeField] private float mouseSensitivity;
+    public float MouseSensitivity => mouseSensitivity;
 
     // Action Maps
     private InputActionMap movementMap;
@@ -17,9 +18,9 @@ public class Input_Manager : MonoBehaviour
     private InputAction jump;
 
     // Events
-    public Action<Vector2> OnMoveEvent;
-    public Action<Vector2> OnTurnEvent;
-    public Action OnJumpEvent;
+    public event Action<Vector2> OnMoveEvent;   // Public event kapsülleme örneğidir
+    public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
+    public event Action OnJumpEvent;
 
     void OnEnable()
     {
