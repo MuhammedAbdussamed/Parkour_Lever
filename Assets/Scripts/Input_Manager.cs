@@ -6,6 +6,7 @@ public class Input_Manager : MonoBehaviour
 {
     [Header("Inputs")]
     [SerializeField] private InputActionAsset inputs;
+    [SerializeField] internal float mouseSensitivity;
 
     // Action Maps
     private InputActionMap movementMap;
@@ -13,10 +14,12 @@ public class Input_Manager : MonoBehaviour
     // Actions
     private InputAction move;
     private InputAction turn;
+    private InputAction jump;
 
     // Events
     public Action<Vector2> OnMoveEvent;
     public Action<Vector2> OnTurnEvent;
+    public Action OnJumpEvent;
 
     void OnEnable()
     {
@@ -25,6 +28,8 @@ public class Input_Manager : MonoBehaviour
 
         turn.performed += ReadMouseInput;
         turn.canceled += StopTurning;
+
+        jump.performed += OnJumpInput;
     }
 
     void OnDisable()
@@ -34,6 +39,8 @@ public class Input_Manager : MonoBehaviour
 
         turn.performed -= ReadMouseInput;
         turn.canceled -= StopTurning;
+
+        jump.performed -= OnJumpInput;
     }
 
     void Awake()
@@ -47,6 +54,7 @@ public class Input_Manager : MonoBehaviour
         movementMap = inputs.FindActionMap("Movement");
         move = movementMap.FindAction("Move");
         turn = movementMap.FindAction("Turn");
+        jump = movementMap.FindAction("Jump");
 
         inputs.Enable();
     }
@@ -77,5 +85,11 @@ public class Input_Manager : MonoBehaviour
     private void StopTurning(InputAction.CallbackContext context)
     {
         OnTurnEvent?.Invoke(Vector2.zero);
+    }
+
+    /*--------------------------------*/
+    private void OnJumpInput(InputAction.CallbackContext context)
+    {
+        OnJumpEvent?.Invoke();
     }
 }
