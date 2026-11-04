@@ -6,16 +6,49 @@ public class Interact : MonoBehaviour
 {
     [Header("Raycast Layers")]
     [SerializeField] private LayerMask layers;
+    [SerializeField] private Input_Manager inputManager;
 
     // Events
     public event Action<bool> InteractTextEvent;
 
-    void Update()
+    // Variables
+    private Collider interactingObject;
+    private bool wasInteracting;
+
+    void OnEnable()
     {
-        SendRaycastToMouse();
+        inputManager.OnInteractionEvent += InteractionWithObject;
     }
 
-    void SendRaycastToMouse()
+    void OnDisable()
+    {
+        inputManager.OnInteractionEvent -= InteractionWithObject;
+    }
+
+    void Update()
+    {
+        interactingObject = SendRaycastToMouse();
+    }
+
+    private void InteractionWithObject()
+    {
+        if (interactingObject == null)
+        { return; }
+
+        if (!interactingObject.TryGetComponent<Activateable_Objects>(out var objectScript))
+        { return; }                 // Null Check
+
+        if (objectScript.IsActive)
+        {
+            objectScript.TurnOff();
+        }
+        else
+        {
+            objectScript.TurnOn();
+        }
+    }
+
+    private Collider SendRaycastToMouse()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
 
@@ -25,12 +58,23 @@ public class Interact : MonoBehaviour
 
         if(Physics.Raycast(ray,out hit,10f,layers))
         {
-            Debug.Log("Çarptı!");               // Ok
-            InteractTextEvent?.Invoke(true);
+            if (!wasInteracting)
+            {
+                wasInteracting = true;
+                InteractTextEvent?.Invoke(true);
+                return hit.collider;                    // Çarptı ve etkileşimde değildi. 
+            }
+            return hit.collider;                        // Çarptı ve etkileşimde 
         }
         else
         {
-            InteractTextEvent?.Invoke(false);
+            if (wasInteracting)
+            {
+                wasInteracting = false;
+                InteractTextEvent?.Invoke(false);
+                return null;                            // Çarpmadı ve etkileşimdeydi
+            }
+            return null;                                // Çarpmadı ve etkileşimde değildi. ( Default durum )
         }
     }
 }

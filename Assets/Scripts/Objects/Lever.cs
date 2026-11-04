@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class Lever : MonoBehaviour
+public class Lever : Activateable_Objects 
 {
-    
-    void Start()
+    public override void TurnOff()
     {
-        
+        if (isActive)
+        {
+            isActive = false;
+            Debug.Log("Kapandı");
+        }
     }
-
     
-    void Update()
-    {
-        
-    }
 }

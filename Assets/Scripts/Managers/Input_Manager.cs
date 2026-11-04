@@ -16,11 +16,15 @@ public class Input_Manager : MonoBehaviour
     private InputAction move;
     private InputAction turn;
     private InputAction jump;
+    private InputAction interact;
+
 
     // Events
     public event Action<Vector2> OnMoveEvent;   // Public event kapsülleme örneğidir
     public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
     public event Action OnJumpEvent;
+    public event Action OnInteractionEvent;
+
 
     void OnEnable()
     {
@@ -29,6 +33,8 @@ public class Input_Manager : MonoBehaviour
 
         turn.performed += ReadMouseInput;
         turn.canceled += StopTurning;
+
+        interact.performed += CheckInteractions;
 
         jump.performed += OnJumpInput;
     }
@@ -40,6 +46,8 @@ public class Input_Manager : MonoBehaviour
 
         turn.performed -= ReadMouseInput;
         turn.canceled -= StopTurning;
+
+        interact.performed -= CheckInteractions;
 
         jump.performed -= OnJumpInput;
     }
@@ -56,6 +64,7 @@ public class Input_Manager : MonoBehaviour
         move = movementMap.FindAction("Move");
         turn = movementMap.FindAction("Turn");
         jump = movementMap.FindAction("Jump");
+        interact = movementMap.FindAction("Interaction");
 
         inputs.Enable();
     }
@@ -86,6 +95,13 @@ public class Input_Manager : MonoBehaviour
     private void StopTurning(InputAction.CallbackContext context)
     {
         OnTurnEvent?.Invoke(Vector2.zero);
+    }
+
+    /*--------------------------------*/
+
+    private void CheckInteractions(InputAction.CallbackContext context)
+    {
+        OnInteractionEvent?.Invoke();
     }
 
     /*--------------------------------*/

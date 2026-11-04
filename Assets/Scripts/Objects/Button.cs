@@ -1,16 +1,37 @@
 using UnityEngine;
 
-public class Button : Interactable_Objects
+public class Button : Activateable_Objects
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float activationDuration;
+    public float defaultDurationValue;
+    
+
+    public void Awake()
     {
-        
+        defaultDurationValue = activationDuration;
+        activationDuration = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void TurnOn()
     {
-        
+        base.TurnOn();
+        activationDuration = defaultDurationValue;
+    }
+
+    public void Update()
+    {
+        activationDuration -= Time.deltaTime;
+        activationDuration = Mathf.Clamp(activationDuration, 0, defaultDurationValue);
+        TurnOff();
+    }
+
+    public override void TurnOff()
+    {
+        if (isActive && activationDuration < 0.15f)
+        {
+            isActive = false;
+            Debug.Log("Kapandı");
+            
+        }
     }
 }

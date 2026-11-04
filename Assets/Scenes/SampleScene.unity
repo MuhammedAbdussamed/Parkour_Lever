@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 59753023}
   - component: {fileID: 59753022}
   - component: {fileID: 59753021}
+  - component: {fileID: 59753025}
   m_Layer: 9
   m_Name: Interactable_Object
   m_TagString: Untagged
@@ -534,6 +535,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &59753025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59753020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dcdbe3fcbb398749ae87b67fecb6a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Activateable_Objects
+  activationDuration: 5
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3557,6 +3571,19 @@ Transform:
   - {fileID: 1360123425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!134 &1634649504
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!1 &1646343272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8762286023885395077, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
@@ -4023,7 +4050,6 @@ GameObject:
   - component: {fileID: 2056165263}
   - component: {fileID: 2056165268}
   - component: {fileID: 2056165270}
-  - component: {fileID: 2056165269}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -4080,7 +4106,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056165261}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 1634649504}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4185,21 +4211,6 @@ MonoBehaviour:
   raycastLayers:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &2056165269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056165261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06565ce60421e3e4d8292ff1261c8063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Interact
-  layers:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &2056165270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4214,7 +4225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Interact
   layers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
+  inputManager: {fileID: 1834803769}
 --- !u!1 &2071698991
 GameObject:
   m_ObjectHideFlags: 0
