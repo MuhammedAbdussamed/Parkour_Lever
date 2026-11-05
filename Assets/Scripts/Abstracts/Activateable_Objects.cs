@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Activateable_Objects : Interactable_Objects
+public abstract class Activateable_Objects : MonoBehaviour
 {
     public bool isActive;
 

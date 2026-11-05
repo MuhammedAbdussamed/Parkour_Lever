@@ -5,11 +5,8 @@ public class Player_Controller : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Input_Manager inputManager;
+    private Player_Stats playerStats;
     private Ground_Checker groundChecker;
-
-    [Header("Stats")]
-    [SerializeField] private float characterSpeed;
-    [SerializeField] private float jumpPower;
 
     // Components
     private Rigidbody rb;
@@ -23,6 +20,7 @@ public class Player_Controller : MonoBehaviour
         inputManager.OnMoveEvent += ReadMoveInputValue;
         inputManager.OnTurnEvent += ReadMouseTurnValue;
         inputManager.OnJumpEvent += Jump;
+        inputManager.OnRunEvent += Run;
     }
 
     void OnDisable()
@@ -30,11 +28,14 @@ public class Player_Controller : MonoBehaviour
         inputManager.OnMoveEvent -= ReadMoveInputValue;
         inputManager.OnTurnEvent -= ReadMouseTurnValue;
         inputManager.OnJumpEvent -= Jump;
+        inputManager.OnRunEvent -= Run;
     }
 
     void Awake()
     {
         groundChecker = GetComponent<Ground_Checker>();
+        playerStats = GetComponent<Player_Stats>();
+
         rb = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -44,6 +45,8 @@ public class Player_Controller : MonoBehaviour
     void Update()
     {
         Turn();
+        DetectPlayerStamina();
+        StopRunning();
     }
 
     private void FixedUpdate()
@@ -78,9 +81,9 @@ public class Player_Controller : MonoBehaviour
             rightDirection * movementDirection.x;
 
         rb.linearVelocity = new Vector3(
-            direction.x * characterSpeed,
+            direction.x * playerStats.characterSpeed,
             rb.linearVelocity.y,
-            direction.z * characterSpeed
+            direction.z * playerStats.characterSpeed
         );
     }
 
@@ -101,11 +104,62 @@ public class Player_Controller : MonoBehaviour
         Debug.Log("Zıplıyor");
         if (groundChecker.OnGround)
         {
-            rb.AddForce(Vector3.up * jumpPower * 1000, ForceMode.Force);
+            rb.AddForce(Vector3.up * playerStats.jumpPower * 1000, ForceMode.Force);
         }
     }
+
+    /*---*/
+
+    private void Run()
+    {
+        if (!playerStats.isTired)
+        {
+            playerStats.characterSpeed = Mathf.Lerp(
+                playerStats.characterSpeed,
+                playerStats.defaultCharacterSpeed * 1.5f,
+                1f
+                );
+
+            playerStats.stamina -= Time.deltaTime * playerStats.staminaDecreasingValue;
+        }
+    }
+
+    /*---*/
+
+    private void DetectPlayerStamina()
+    {
+        if(playerStats.stamina < 0.05)
+        {
+            playerStats.isTired = true;
+        }
+        else
+        {
+            playerStats.isTired = false;
+        }
+    }
+
+    private void StopRunning()
+    {
+        if (playerStats.isTired)
+        {
+            playerStats.characterSpeed = Mathf.Lerp(
+                playerStats.characterSpeed,
+                playerStats.defaultCharacterSpeed,
+                1f
+                );
+
+            playerStats.stamina += Time.deltaTime * playerStats.staminaIncreasingValue;
+        }
+    }
+
+    private void StopRunningHandle()
+    {
+
+    }
+
+    /*---*/
 }
 
-    
+
 
     #endregion

@@ -17,6 +17,7 @@ public class Input_Manager : MonoBehaviour
     private InputAction turn;
     private InputAction jump;
     private InputAction interact;
+    private InputAction run;
 
 
     // Events
@@ -24,6 +25,8 @@ public class Input_Manager : MonoBehaviour
     public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
     public event Action OnJumpEvent;
     public event Action OnInteractionEvent;
+    public event Action OnRunEvent;
+
 
 
     void OnEnable()
@@ -35,6 +38,8 @@ public class Input_Manager : MonoBehaviour
         turn.canceled += StopTurning;
 
         interact.performed += CheckInteractions;
+
+        run.performed += Run;
 
         jump.performed += OnJumpInput;
     }
@@ -48,6 +53,8 @@ public class Input_Manager : MonoBehaviour
         turn.canceled -= StopTurning;
 
         interact.performed -= CheckInteractions;
+
+        run.performed -= Run;
 
         jump.performed -= OnJumpInput;
     }
@@ -65,6 +72,7 @@ public class Input_Manager : MonoBehaviour
         turn = movementMap.FindAction("Turn");
         jump = movementMap.FindAction("Jump");
         interact = movementMap.FindAction("Interaction");
+        run = movementMap.FindAction("Run");
 
         inputs.Enable();
     }
@@ -85,6 +93,13 @@ public class Input_Manager : MonoBehaviour
 
     /*--------------------------------*/
 
+    private void Run(InputAction.CallbackContext context)
+    {
+        Debug.Log("Koşuyorum");
+        OnRunEvent?.Invoke();
+    }
+
+    /*--------------------------------*/
     private void ReadMouseInput(InputAction.CallbackContext context)
     {
         OnTurnEvent?.Invoke(context.ReadValue<Vector2>());
