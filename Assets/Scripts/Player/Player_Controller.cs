@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -14,13 +15,15 @@ public class Player_Controller : MonoBehaviour
     // Variables
     private Vector2 movementDirection;
     private Vector2 mouseTurnValue;
-
+    private bool isShiftPressed;
+    private bool isResting;
+        
     void OnEnable()
     {
         inputManager.OnMoveEvent += ReadMoveInputValue;
         inputManager.OnTurnEvent += ReadMouseTurnValue;
         inputManager.OnJumpEvent += Jump;
-        inputManager.OnRunEvent += Run;
+        inputManager.OnRunEvent += ShiftPressedControl;
     }
 
     void OnDisable()
@@ -28,7 +31,7 @@ public class Player_Controller : MonoBehaviour
         inputManager.OnMoveEvent -= ReadMoveInputValue;
         inputManager.OnTurnEvent -= ReadMouseTurnValue;
         inputManager.OnJumpEvent -= Jump;
-        inputManager.OnRunEvent -= Run;
+        inputManager.OnRunEvent -= ShiftPressedControl;
     }
 
     void Awake()
@@ -45,8 +48,7 @@ public class Player_Controller : MonoBehaviour
     void Update()
     {
         Turn();
-        DetectPlayerStamina();
-        StopRunning();
+        Run();
     }
 
     private void FixedUpdate()
@@ -110,37 +112,16 @@ public class Player_Controller : MonoBehaviour
 
     /*---*/
 
-    private void Run()
+    private void ShiftPressedControl(bool isShiftPressed)
     {
-        if (!playerStats.isTired)
-        {
-            playerStats.characterSpeed = Mathf.Lerp(
-                playerStats.characterSpeed,
-                playerStats.defaultCharacterSpeed * 1.5f,
-                1f
-                );
-
-            playerStats.stamina -= Time.deltaTime * playerStats.staminaDecreasingValue;
-        }
+        this.isShiftPressed = isShiftPressed;
     }
 
     /*---*/
 
-    private void DetectPlayerStamina()
+    private void Run()
     {
-        if(playerStats.stamina < 0.05)
-        {
-            playerStats.isTired = true;
-        }
-        else
-        {
-            playerStats.isTired = false;
-        }
-    }
-
-    private void StopRunning()
-    {
-        if (playerStats.isTired)
+        if (!isShiftPressed || playerStats.stamina < 0.1f)
         {
             playerStats.characterSpeed = Mathf.Lerp(
                 playerStats.characterSpeed,
@@ -148,16 +129,44 @@ public class Player_Controller : MonoBehaviour
                 1f
                 );
 
-            playerStats.stamina += Time.deltaTime * playerStats.staminaIncreasingValue;
+            if (!isResting)
+            { StartCoroutine(IncreaseStamina(1)); }
+        }
+
+        else
+        {
+            playerStats.characterSpeed = Mathf.Lerp(
+                playerStats.characterSpeed,
+                playerStats.defaultCharacterSpeed * 1.5f,
+                1f
+            );
+
+            DecreaseStamina();
         }
     }
 
-    private void StopRunningHandle()
-    {
+    /*---*/
 
+    IEnumerator IncreaseStamina(int valueSign)      // +1 = Stamina artar. -1 = Stamina azalır
+    {
+        isResting = true;
+        yield return new WaitForSeconds(3f);
+
+        while (playerStats.stamina < 100f && !isShiftPressed)
+        {
+            playerStats.stamina += Time.deltaTime * playerStats.staminaIncreasingValue;
+            yield return null;
+        }
+        
+        isResting = false;
     }
 
     /*---*/
+
+    private void DecreaseStamina()
+    {
+        playerStats.stamina -= Time.deltaTime * playerStats.staminaIncreasingValue;
+    }
 }
 
 

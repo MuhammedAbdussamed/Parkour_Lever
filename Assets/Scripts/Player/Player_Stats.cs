@@ -16,8 +16,8 @@ public class Player_Stats : MonoBehaviour
     void Awake()
     {
         defaultCharacterSpeed = characterSpeed;
-        staminaDecreasingValue = 20f;
-        staminaIncreasingValue = 20f;
+        staminaDecreasingValue = 50f;
+        staminaIncreasingValue = 50f;
     }
 
     void Update()

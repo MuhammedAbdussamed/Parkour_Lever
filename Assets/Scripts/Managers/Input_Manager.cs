@@ -25,8 +25,7 @@ public class Input_Manager : MonoBehaviour
     public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
     public event Action OnJumpEvent;
     public event Action OnInteractionEvent;
-    public event Action OnRunEvent;
-
+    public event Action<bool> OnRunEvent;
 
 
     void OnEnable()
@@ -40,6 +39,7 @@ public class Input_Manager : MonoBehaviour
         interact.performed += CheckInteractions;
 
         run.performed += Run;
+        run.canceled += StopRunning;
 
         jump.performed += OnJumpInput;
     }
@@ -55,6 +55,7 @@ public class Input_Manager : MonoBehaviour
         interact.performed -= CheckInteractions;
 
         run.performed -= Run;
+        run.canceled -= StopRunning;
 
         jump.performed -= OnJumpInput;
     }
@@ -77,7 +78,9 @@ public class Input_Manager : MonoBehaviour
         inputs.Enable();
     }
 
-    /*---------Input Functions---------*/
+    #region --- Input Functions ---
+
+    /*---------- Movement ----------*/
 
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
@@ -91,15 +94,23 @@ public class Input_Manager : MonoBehaviour
         OnMoveEvent?.Invoke(Vector2.zero);
     }
 
-    /*--------------------------------*/
+    /*------------ Run --------------*/
 
     private void Run(InputAction.CallbackContext context)
     {
         Debug.Log("Koşuyorum");
-        OnRunEvent?.Invoke();
+        OnRunEvent?.Invoke(true);
     }
 
-    /*--------------------------------*/
+    /*---*/
+
+    private void StopRunning(InputAction.CallbackContext context)
+    {
+        Debug.Log("Koşmuyorum");
+        OnRunEvent?.Invoke(false);
+    }
+
+    /*----------- Mouse & Turn --------------*/
     private void ReadMouseInput(InputAction.CallbackContext context)
     {
         OnTurnEvent?.Invoke(context.ReadValue<Vector2>());
@@ -112,16 +123,18 @@ public class Input_Manager : MonoBehaviour
         OnTurnEvent?.Invoke(Vector2.zero);
     }
 
-    /*--------------------------------*/
+    /*--------- Interaction ---------*/
 
     private void CheckInteractions(InputAction.CallbackContext context)
     {
         OnInteractionEvent?.Invoke();
     }
 
-    /*--------------------------------*/
+    /*------------ Jump --------------*/
     private void OnJumpInput(InputAction.CallbackContext context)
     {
         OnJumpEvent?.Invoke();
     }
+
+    #endregion
 }
