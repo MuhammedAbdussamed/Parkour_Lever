@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,12 +18,12 @@ public class Interact : MonoBehaviour
 
     void OnEnable()
     {
-        inputManager.OnInteractionEvent += InteractionWithObject;
+        inputManager.OnInteractionEvent += DetectObjectType;
     }
 
     void OnDisable()
     {
-        inputManager.OnInteractionEvent -= InteractionWithObject;
+        inputManager.OnInteractionEvent -= DetectObjectType;
     }
 
     void Update()
@@ -30,18 +31,29 @@ public class Interact : MonoBehaviour
         interactingObject = SendRaycastToMouse();
     }
 
-    private void InteractionWithObject()
+    private void DetectObjectType()
     {
         if (interactingObject == null)
         { return; }
 
-        if (!interactingObject.TryGetComponent<Activateable_Objects>(out var objectScript))
-        { return; }                 // Null Check
+        if (interactingObject.TryGetComponent<Activateable_Objects>(out var activetableScript))
+        {
+            InteractActivetableObjects(activetableScript);
+        }
 
+        else if (interactingObject.TryGetComponent<Interactable_Objects>(out Interactable_Objects script))
+        {
+            script.InteractFunction();
+        }
+    }
+
+    private void InteractActivetableObjects(Activateable_Objects objectScript)
+    {
         if (objectScript.IsActive)
         {
             objectScript.TurnOff();
         }
+
         else
         {
             objectScript.TurnOn();
