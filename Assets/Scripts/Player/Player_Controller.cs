@@ -17,7 +17,7 @@ public class Player_Controller : MonoBehaviour
     private Vector2 mouseTurnValue;
     private bool isShiftPressed;
     private bool isResting;
-        
+
     void OnEnable()
     {
         inputManager.OnMoveEvent += ReadMoveInputValue;
@@ -110,7 +110,7 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    /*---*/
+    /*-------------- Run --------------*/
 
     private void ShiftPressedControl(bool isShiftPressed)
     {
@@ -145,7 +145,7 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    /*---*/
+    /*--------------- Stamina ---------------*/
 
     IEnumerator IncreaseStamina(int valueSign)      // +1 = Stamina artar. -1 = Stamina azalır
     {
@@ -157,7 +157,7 @@ public class Player_Controller : MonoBehaviour
             playerStats.stamina += Time.deltaTime * playerStats.staminaIncreasingValue;
             yield return null;
         }
-        
+
         isResting = false;
     }
 
@@ -167,8 +167,10 @@ public class Player_Controller : MonoBehaviour
     {
         playerStats.stamina -= Time.deltaTime * playerStats.staminaIncreasingValue;
     }
+
+    #endregion
 }
 
 
 
-    #endregion
+

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Print_Weight : MonoBehaviour
 {
-    public static void PrintMass(TextMeshPro massText, Rigidbody rb)
+    public static void PrintMass(TextMeshPro massText, float mass)
     {
-        massText.text = rb.mass.ToString();
+        massText.text = mass.ToString();
     }
 }

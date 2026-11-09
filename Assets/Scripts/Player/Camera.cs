@@ -5,11 +5,14 @@ public class Camera : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private Input_Manager inputManager;
-    private float xRotation;
-    private Vector2 mouseTurnValue;
+    
 
     // Variables
     private float turnDirection;
+    private float xRotation;
+    private Vector2 mouseTurnValue;
+    public static Vector3 cameraPosition;
+
 
     void OnEnable()
     {
@@ -24,6 +27,8 @@ public class Camera : MonoBehaviour
     void Update()
     {
         TurnUpDown();
+        cameraPosition = transform.position + new Vector3(0, 0, 0);
+        
     }
 
     private void ReadMouseValue(Vector2 mouseTurnInput)
