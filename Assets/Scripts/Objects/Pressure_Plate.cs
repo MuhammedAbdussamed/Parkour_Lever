@@ -1,16 +1,33 @@
 using UnityEngine;
 
-public class Pressure_Plate : MonoBehaviour
+public class Pressure_Plate : Activateable_Objects
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Mass Activate Value")]
+    [SerializeField] private int massActivateValue;
+    private Collision? currentCol;
+
+    void OnCollisionEnter(Collision col)
     {
-        
+        currentCol = col;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionStay()
     {
-        
+        if (currentCol == null) 
+            return; 
+
+        Rigidbody colRb = currentCol.gameObject.GetComponent<Rigidbody>();
+
+        if (colRb.mass > massActivateValue)
+            TurnOn();
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (col == currentCol)
+        {
+            currentCol = null;
+            TurnOff();
+        }
     }
 }
