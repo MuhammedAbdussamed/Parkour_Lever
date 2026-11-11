@@ -6,9 +6,12 @@ using System.Collections.Generic;
 // Ağırlık objeleri için genellikle bu script kullanılır
 public class Movable_Objects : Interactable_Objects
 {
-    public bool isHolding;      // Objenin "tutuluyor mu ?" sorusunu cevaplar
-    private Rigidbody rb;
+    // Variables
+    public bool isHolding;                          // Objenin "tutuluyor mu ?" sorusunu cevaplar
+    private const int objectMovingSpeed = 10;
 
+    // References
+    private Rigidbody rb;
     private TextMeshPro massText;
 
     private void Awake()
@@ -37,7 +40,7 @@ public class Movable_Objects : Interactable_Objects
         transform.position = Vector3.Lerp(
             transform.position,
             targetPosition,
-            Time.deltaTime * 10
+            Time.deltaTime * objectMovingSpeed
             );
     }
 
@@ -47,25 +50,4 @@ public class Movable_Objects : Interactable_Objects
         rb.isKinematic = isHolding;
     }
 }
-
-    /*
-    private void MoveObject()
-    {
-        if (isHolding)
-        {
-            rb.Sleep();
-            Vector3 cameraPosition = Camera.cameraPosition;
-
-            transform.position = Vector3.Lerp(
-                transform.position,
-                cameraPosition,
-                Time.deltaTime * 10
-                );
-        }
-        else
-        {
-            rb.WakeUp();
-        }
-    }
-    */
 
