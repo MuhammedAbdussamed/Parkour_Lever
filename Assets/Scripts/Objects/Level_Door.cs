@@ -1,14 +1,15 @@
 using NUnit.Framework;
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Level_Door : MonoBehaviour
 {
     
     [Header("Door Items")]
     [SerializeField] private List<Activateable_Objects> doorItems = new List<Activateable_Objects>();
-
-    private bool isActive { get; set; }
+    public event Action OnAnimationEvent;
+    [SerializeField] public bool isActive;
 
     private void OnEnable()
     {
@@ -33,15 +34,21 @@ public class Level_Door : MonoBehaviour
             if (!item.isActive)
             {
                 isActive = false;
+                OnAnimationEvent?.Invoke();
                 return;
             }
             else
             {
-                this.isActive = true; 
+                this.isActive = true;
+                OnAnimationEvent?.Invoke();
                 Debug.Log("Kapı Açıldı !");
             }
         }
     }
+
+    /*-----*/
+
+   
 
     /*-----*/
 

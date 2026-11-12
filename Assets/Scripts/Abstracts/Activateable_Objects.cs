@@ -21,5 +21,8 @@ public abstract class Activateable_Objects : MonoBehaviour
 
     public virtual void TurnOff() { }
 
-    
+    protected void InvokePowerEvent()
+    {
+        OnPowerEvent?.Invoke();
+    }
 }

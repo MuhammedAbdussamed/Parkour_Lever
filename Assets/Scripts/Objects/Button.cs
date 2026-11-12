@@ -4,7 +4,6 @@ public class Button : Activateable_Objects
 {
     public float activationDuration;
     public float defaultDurationValue;
-    
 
     public void Awake()
     {
@@ -30,6 +29,7 @@ public class Button : Activateable_Objects
         if (isActive && activationDuration < 0.15f)
         {
             isActive = false;
+            InvokePowerEvent();
             Debug.Log("Kapandı");
             
         }
