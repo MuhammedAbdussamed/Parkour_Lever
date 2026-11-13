@@ -4053,6 +4053,10 @@ PrefabInstance:
       value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8875449794350432204, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05644866
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875449794350432204, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.029
       objectReference: {fileID: 0}
@@ -4067,6 +4071,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1052612311}
+    - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1052612314}
+    - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1052612313}
     - targetCorrespondingSourceObject: {fileID: 8875449794350654444, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 790858278}
@@ -4090,11 +4100,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level_Door
   doorItems:
   - {fileID: 1207692303}
+  isActive: 0
 --- !u!4 &1052612312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8875449794350432198, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
   m_PrefabInstance: {fileID: 1052612309}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1052612313
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052612310}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a64fd2b4e3eb7064eb4a90c5ef39e4fa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1052612314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052612310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df927ac3a2439f24199ac407ee52aca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Doors_Animations
 --- !u!1001 &1207692302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4545,6 +4590,7 @@ MonoBehaviour:
   - {fileID: 59753025}
   - {fileID: 926524829}
   - {fileID: 1849687057}
+  isActive: 0
 --- !u!1 &1312565219
 GameObject:
   m_ObjectHideFlags: 0
@@ -5847,10 +5893,10 @@ PrefabInstance:
       addedObject: {fileID: 1792262572}
     - targetCorrespondingSourceObject: {fileID: 4972167997025983191, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1792262578}
+      addedObject: {fileID: 1792262577}
     - targetCorrespondingSourceObject: {fileID: 4972167997025983191, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1792262577}
+      addedObject: {fileID: 1792262580}
     - targetCorrespondingSourceObject: {fileID: 4972167997025983193, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1792262570}
@@ -5931,6 +5977,7 @@ MonoBehaviour:
   - {fileID: 2114781068}
   - {fileID: 2117761374}
   - {fileID: 59753025}
+  isActive: 0
 --- !u!95 &1792262577
 Animator:
   serializedVersion: 7
@@ -5953,7 +6000,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1792262578
+--- !u!114 &1792262580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5962,9 +6009,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1792262571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b67be1945b49c40ada5e2627b84e61, type: 3}
+  m_Script: {fileID: 11500000, guid: df927ac3a2439f24199ac407ee52aca2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Activateble_Objects_Animations
+  m_EditorClassIdentifier: Assembly-CSharp::Doors_Animations
 --- !u!1001 &1819920295
 PrefabInstance:
   m_ObjectHideFlags: 0
