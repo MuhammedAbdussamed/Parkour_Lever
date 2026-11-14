@@ -3,12 +3,11 @@ using UnityEngine;
 public class AO_Animations : MonoBehaviour
 {
     private Animator objectAnimator;
-    private Activateable_Objects objectScript;
+    private BaseActivatable objectScript;
 
     void Awake()
     {
-        
-        objectScript = GetComponent<Activateable_Objects>();
+        objectScript = GetComponent<BaseActivatable>();
         objectAnimator = GetComponent<Animator>();
     }
 

@@ -4,7 +4,7 @@ public class Camera : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform cameraHolder;
-    [SerializeField] private Input_Manager inputManager;
+    [SerializeField] private InputManager inputManager;
     
 
     // Variables

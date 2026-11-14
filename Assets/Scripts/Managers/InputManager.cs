@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Input_Manager : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     [Header("Inputs")]
     [SerializeField] private InputActionAsset inputs;
@@ -19,14 +19,12 @@ public class Input_Manager : MonoBehaviour
     private InputAction interact;
     private InputAction run;
 
-
     // Events
     public event Action<Vector2> OnMoveEvent;   // Public event kapsülleme örneğidir
     public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
+    public event Action<bool> OnRunEvent;
     public event Action OnJumpEvent;
     public event Action OnInteractionEvent;
-    public event Action<bool> OnRunEvent;
-
 
     void OnEnable()
     {
@@ -65,19 +63,6 @@ public class Input_Manager : MonoBehaviour
         AssignInputs();
     }
 
-    private void AssignInputs()
-    {
-
-        movementMap = inputs.FindActionMap("Movement");
-        move = movementMap.FindAction("Move");
-        turn = movementMap.FindAction("Turn");
-        jump = movementMap.FindAction("Jump");
-        interact = movementMap.FindAction("Interaction");
-        run = movementMap.FindAction("Run");
-
-        inputs.Enable();
-    }
-
     #region --- Input Functions ---
 
     /*---------- Movement ----------*/
@@ -109,6 +94,7 @@ public class Input_Manager : MonoBehaviour
     }
 
     /*----------- Mouse & Turn --------------*/
+
     private void ReadMouseInput(InputAction.CallbackContext context)
     {
         OnTurnEvent?.Invoke(context.ReadValue<Vector2>());
@@ -129,9 +115,25 @@ public class Input_Manager : MonoBehaviour
     }
 
     /*------------ Jump --------------*/
+
     private void OnJumpInput(InputAction.CallbackContext context)
     {
         OnJumpEvent?.Invoke();
+    }
+
+    /*---------- Assigns ------------*/
+
+    private void AssignInputs()
+    {
+
+        movementMap = inputs.FindActionMap("Movement");
+        move = movementMap.FindAction("Move");
+        turn = movementMap.FindAction("Turn");
+        jump = movementMap.FindAction("Jump");
+        interact = movementMap.FindAction("Interaction");
+        run = movementMap.FindAction("Run");
+
+        inputs.Enable();
     }
 
     #endregion

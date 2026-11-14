@@ -1,12 +1,11 @@
 using System;
 using UnityEngine;
 
-public class PressurePlate : Activateable_Objects
+public class PressurePlate : BaseActivatable
 {
     [Header("Mass Activate Value")]
     [SerializeField] private int massActivateValue;
     private Collision? currentCol;
-    private event Action OnActiveEvent;
 
     void OnCollisionEnter(Collision col)
     {
@@ -15,16 +14,7 @@ public class PressurePlate : Activateable_Objects
 
     private void OnCollisionStay()
     {
-        if (currentCol == null) 
-            return; 
-
-        Rigidbody colRb = currentCol.gameObject.GetComponent<Rigidbody>();
-
-        if (colRb.mass > massActivateValue)
-        {
-            TurnOn();
-            Debug.Log("Basınç Plakası Aktif !");
-        }
+        StayActive();
     }
 
     void OnCollisionExit(Collision col)
@@ -37,9 +27,30 @@ public class PressurePlate : Activateable_Objects
         }
     }
 
+    #region ----- Functions -----
+
+
+    private void StayActive()
+    {
+        if (currentCol == null)
+            return;
+
+        Rigidbody colRb = currentCol.gameObject.GetComponent<Rigidbody>();
+
+        if (colRb.mass > massActivateValue)
+        {
+            TurnOn();
+            Debug.Log("Basınç Plakası Aktif !");
+        }
+    }
+
+    /*------------------------------*/
+
     public override void TurnOff()
     {
         isActive = false;
         InvokePowerEvent();
     }
+    
+    #endregion
 }

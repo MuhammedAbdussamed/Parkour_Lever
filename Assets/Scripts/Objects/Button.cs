@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Button : Activateable_Objects
+public class Button : BaseActivatable
 {
     public float activationDuration;
     public float defaultDurationValue;
@@ -11,12 +11,6 @@ public class Button : Activateable_Objects
         activationDuration = 0f;
     }
 
-    public override void TurnOn()
-    {
-        base.TurnOn();
-        activationDuration = defaultDurationValue;
-    }
-
     public void Update()
     {
         activationDuration -= Time.deltaTime;
@@ -24,14 +18,24 @@ public class Button : Activateable_Objects
         TurnOff();
     }
 
+    #region ----- Functions -----
+
     public override void TurnOff()
     {
         if (isActive && activationDuration < 0.15f)
         {
             isActive = false;
             InvokePowerEvent();
-            Debug.Log("Kapandı");
-            
         }
     }
+
+    /*-----------------------------------*/
+
+    public override void TurnOn()
+    {
+        base.TurnOn();
+        activationDuration = defaultDurationValue;
+    }
+
+    #endregion
 }

@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 using System.Collections;
 
-public class Player_Controller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Input_Manager inputManager;
-    private Player_Stats playerStats;
-    private Ground_Checker groundChecker;
+    [SerializeField] private InputManager inputManager;
+    private PlayerStats playerStats;
+    private GroundChecker groundChecker;
 
     // Components
     private Rigidbody rb;
@@ -22,22 +22,22 @@ public class Player_Controller : MonoBehaviour
     {
         inputManager.OnMoveEvent += ReadMoveInputValue;
         inputManager.OnTurnEvent += ReadMouseTurnValue;
-        inputManager.OnJumpEvent += Jump;
         inputManager.OnRunEvent += ShiftPressedControl;
+        inputManager.OnJumpEvent += Jump;
     }
 
     void OnDisable()
     {
         inputManager.OnMoveEvent -= ReadMoveInputValue;
         inputManager.OnTurnEvent -= ReadMouseTurnValue;
-        inputManager.OnJumpEvent -= Jump;
         inputManager.OnRunEvent -= ShiftPressedControl;
+        inputManager.OnJumpEvent -= Jump;
     }
 
     void Awake()
     {
-        groundChecker = GetComponent<Ground_Checker>();
-        playerStats = GetComponent<Player_Stats>();
+        groundChecker = GetComponent<GroundChecker>();
+        playerStats = GetComponent<PlayerStats>();
 
         rb = GetComponent<Rigidbody>();
 

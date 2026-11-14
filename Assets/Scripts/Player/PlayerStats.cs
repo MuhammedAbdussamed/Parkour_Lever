@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player_Stats : MonoBehaviour
+public class PlayerStats : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] internal float characterSpeed;

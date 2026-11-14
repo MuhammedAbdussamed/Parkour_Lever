@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 
-public class UI_Manager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Interact interact;
-    [SerializeField] private Player_Stats playerStats;
+    [SerializeField] private PlayerStats playerStats;
 
     [Header("Canvases")]
     [SerializeField] private Canvas playerUI;
@@ -21,12 +21,12 @@ public class UI_Manager : MonoBehaviour
 
     void OnEnable()
     {
-        interact.InteractTextEvent += TurnInteractText;
+        interact.InteractTextEvent += TurnOnInteractText;
     }
 
     void OnDisable()
     {
-        interact.InteractTextEvent -= TurnInteractText;
+        interact.InteractTextEvent -= TurnOnInteractText;
     }
 
     private void Start()
@@ -40,16 +40,21 @@ public class UI_Manager : MonoBehaviour
         SetStaminaBar();
     }
 
-    private void TurnInteractText(bool isOn)
+    #region ----- Functions -----
+
+    private void TurnOnInteractText(bool isOn)
     {
         interactText.gameObject.SetActive(isOn);
     }
 
+    /*-----------------------------------*/
+
     private void SetStaminaBar()
     {
         staminaBar.value = playerStats.stamina;
-
     }
+
+    #endregion
 
 
 }

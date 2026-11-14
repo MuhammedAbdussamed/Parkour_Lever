@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Activateable_Objects : MonoBehaviour
+public abstract class BaseActivatable : MonoBehaviour
 {
     public bool isActive;
 
@@ -11,6 +11,8 @@ public abstract class Activateable_Objects : MonoBehaviour
 
     public event Action OnAnimationEvent;
 
+    #region ----- Functions -----
+
     public virtual void TurnOn()
     {
         isActive = true;
@@ -18,10 +20,16 @@ public abstract class Activateable_Objects : MonoBehaviour
         OnAnimationEvent?.Invoke();
     }
 
+    /*-----------------------------------*/
+
     public virtual void TurnOff() { }
+
+    /*-----------------------------------*/
 
     protected void InvokePowerEvent()
     {
         OnPowerEvent?.Invoke();
     }
+
+    #endregion
 }

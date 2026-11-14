@@ -3,8 +3,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 
-// Ağırlık objeleri için genellikle bu script kullanılır
-public class Movable_Objects : Interactable_Objects
+public class BaseWeights : BaseInteractable
 {
     // Variables
     public bool isHolding;                          // Objenin "tutuluyor mu ?" sorusunu cevaplar
@@ -20,17 +19,27 @@ public class Movable_Objects : Interactable_Objects
         massText = transform.Find("Mass_Text").GetComponent<TextMeshPro>();
     }
 
-    public override void InteractFunction()
-    {
-        HoldItem();
-    }
-
     public void Update()
     {
         massText.text = rb.mass.ToString();
     }
 
     private void LateUpdate()
+    {
+        CatchMousePosition();
+    }
+
+    #region ----- Functions -----
+
+    private void HoldItem()
+    {
+        isHolding = !isHolding;
+        rb.isKinematic = isHolding;
+    }
+
+    /*-----------------------------------*/
+
+    private void CatchMousePosition()               // Etkileşime girilen objenin ( Ağırlığın ) mouseu takip etmesini sağlar.
     {
         if (!isHolding) return;
 
@@ -44,10 +53,13 @@ public class Movable_Objects : Interactable_Objects
             );
     }
 
-    private void HoldItem()
+    /*-----------------------------------*/
+
+    public override void InteractFunction()
     {
-        isHolding = !isHolding;
-        rb.isKinematic = isHolding;
+        HoldItem();
     }
+
+    #endregion
 }
 

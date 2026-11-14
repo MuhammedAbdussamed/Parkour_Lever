@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class WeigthChanger : Interactable_Objects
+public class WeigthChanger : BaseInteractable
 {
     [Header("Mass Value Screen text")]
     [SerializeField] private TextMeshPro massText;
-    internal Collision currentItem;
-    internal Rigidbody itemRb;
+    private Collision currentItem;
+    private Rigidbody itemRb;
 
     void Awake()
     {
@@ -37,6 +37,8 @@ public class WeigthChanger : Interactable_Objects
         ChangeWeight(itemRb);
     }
 
+    #region ----- Functions -----
+
     public virtual void ChangeWeight(Rigidbody colRb)
     {
         if (colRb.mass + 10f > 50f)
@@ -51,4 +53,6 @@ public class WeigthChanger : Interactable_Objects
             // Debug.Log($"İtemin ağırlığı 10 arttırıldı. Şimdi ki ağırlık {colRb.mass}");
         }
     }
+
+    #endregion
 }

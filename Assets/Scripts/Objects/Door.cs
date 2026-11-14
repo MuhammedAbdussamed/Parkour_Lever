@@ -7,13 +7,13 @@ public class Door : MonoBehaviour
 {
     
     [Header("Object References")]
-    [SerializeField] private List<Activateable_Objects> doorItems = new List<Activateable_Objects>();
+    [SerializeField] private List<BaseActivatable> doorItems = new List<BaseActivatable>();
     [SerializeField] private Transform[] doorParts;
 
     [Header("Door Stats")]
-    [SerializeField] private float openingSpeed;
     [SerializeField] private float slideDistance;
-    [SerializeField] private bool isActive;
+    private float openingSpeed;
+    private bool isActive;
 
     // Variables
     private Vector3[] defaultPartPositions;
@@ -21,7 +21,6 @@ public class Door : MonoBehaviour
     private void OnEnable()
     {
         SubscribeEvents(true);
-        
     }
 
     private void OnDisable()
@@ -31,6 +30,8 @@ public class Door : MonoBehaviour
 
     void Awake()
     {
+        openingSpeed = 2.5f;
+
         defaultPartPositions = new Vector3[doorParts.Length];
 
         for (int i = 0; i < doorParts.Length; i++)
@@ -74,7 +75,7 @@ public class Door : MonoBehaviour
             return; 
         }
 
-        foreach (Activateable_Objects item in doorItems)
+        foreach (BaseActivatable item in doorItems)
         {
             if (!item.isActive)
             {
@@ -93,14 +94,14 @@ public class Door : MonoBehaviour
     {
         if(subscribe)
         {
-            foreach (Activateable_Objects item in doorItems)
+            foreach (BaseActivatable item in doorItems)
             {
                 item.OnPowerEvent += OpenClose;
             }
         }
         else
         {
-            foreach (Activateable_Objects item in doorItems)
+            foreach (BaseActivatable item in doorItems)
             {
                 item.OnPowerEvent -= OpenClose;
             }

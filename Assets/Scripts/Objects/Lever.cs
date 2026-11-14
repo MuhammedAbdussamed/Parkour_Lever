@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class Lever : Activateable_Objects
+public class Lever : BaseActivatable
 {
     public override void TurnOff()
     {
         if (isActive)
         {
             isActive = false;
-            Debug.Log("Kapandı");
         }
     }
     

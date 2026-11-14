@@ -12,6 +12,8 @@ public class MovingPlatforms : MonoBehaviour
         Patrol(patrolPoints);
     }
 
+    #region ----- Functions -----
+
     void Patrol(Transform[] patrolPoints)
     {
         transform.position = Vector3.MoveTowards(
@@ -26,14 +28,7 @@ public class MovingPlatforms : MonoBehaviour
         {
             patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
         }
-        
     }
 
-    // 4 patrol pointli dizi olsun
-    // index 0 => 0 / 4 => 0 OK
-    // index 1 => 1 / 4 => 1 Ok
-    // index 2 => 2 / 4 => 2 Ok
-    // index 3 => 3 / 4 => 3 Ok
-    // index 4 => 4 / 4 => 0 Ok 
-   
+    #endregion
 }

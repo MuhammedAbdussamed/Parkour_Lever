@@ -7,7 +7,7 @@ public class Interact : MonoBehaviour
 {
     [Header("Raycast Layers")]
     [SerializeField] private LayerMask layers;
-    [SerializeField] private Input_Manager inputManager;
+    [SerializeField] private InputManager inputManager;
 
     // Events
     public event Action<bool> InteractTextEvent;
@@ -36,18 +36,18 @@ public class Interact : MonoBehaviour
         if (interactingObject == null)
         { return; }
 
-        if (interactingObject.TryGetComponent<Activateable_Objects>(out var activetableScript))
+        if (interactingObject.TryGetComponent<BaseActivatable>(out var activetableScript))
         {
             InteractActivetableObjects(activetableScript);
         }
 
-        else if (interactingObject.TryGetComponent<Interactable_Objects>(out Interactable_Objects script))
+        else if (interactingObject.TryGetComponent<BaseInteractable>(out BaseInteractable script))
         {
             script.InteractFunction();
         }
     }
 
-    private void InteractActivetableObjects(Activateable_Objects objectScript)
+    private void InteractActivetableObjects(BaseActivatable objectScript)
     {
         if (objectScript.IsActive)
         {

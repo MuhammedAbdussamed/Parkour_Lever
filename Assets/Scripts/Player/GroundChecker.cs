@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Ground_Checker : MonoBehaviour
+public class GroundChecker : MonoBehaviour
 {
     [Header("Raycast Settings")]
-    [SerializeField] private float raycastDistance;
     [SerializeField] private LayerMask raycastLayers;
+    private float raycastDistance;
     private bool onGround;
     public bool OnGround => onGround;
 
