@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Activateble_Objects_Animations : MonoBehaviour
+public class AO_Animations : MonoBehaviour
 {
     private Animator objectAnimator;
     private Activateable_Objects objectScript;

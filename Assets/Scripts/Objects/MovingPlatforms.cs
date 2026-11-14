@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Moving_Platforms : MonoBehaviour
+public class MovingPlatforms : MonoBehaviour
 {
     [Header("Patrol Points")]
     [SerializeField] private Transform[] patrolPoints;

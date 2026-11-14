@@ -1,19 +1,24 @@
 using TMPro;
 using UnityEngine;
 
-public class Weigth_Changer : Interactable_Objects
+public class WeigthChanger : Interactable_Objects
 {
     [Header("Mass Value Screen text")]
     [SerializeField] private TextMeshPro massText;
     internal Collision currentItem;
     internal Rigidbody itemRb;
 
+    void Awake()
+    {
+        PrintWeight.PrintMass(massText, 0f);
+    }
+
     private void OnCollisionEnter(Collision col)
     {
         currentItem = col;
         itemRb = col.gameObject.GetComponent<Rigidbody>();
-        Print_Weight.PrintMass(massText, itemRb.mass);
-        Debug.Log($"Giren item : {col.gameObject.name}");
+        PrintWeight.PrintMass(massText, itemRb.mass);
+        // Debug.Log($"Giren item : {col.gameObject.name}");
     }
 
     private void OnCollisionExit(Collision col)
@@ -21,10 +26,10 @@ public class Weigth_Changer : Interactable_Objects
         if (col == currentItem)
         {
             currentItem = null;
-            Print_Weight.PrintMass(massText, 0);
+            PrintWeight.PrintMass(massText, 0);
         }
 
-        Debug.Log($"Çıkan item : {col.gameObject.name}");
+        // Debug.Log($"Çıkan item : {col.gameObject.name}");
     }
 
     public override void InteractFunction()
@@ -37,13 +42,13 @@ public class Weigth_Changer : Interactable_Objects
         if (colRb.mass + 10f > 50f)
         {
             colRb.mass = (colRb.mass + 10f) - 50f;
-            Print_Weight.PrintMass(massText, itemRb.mass);
+            PrintWeight.PrintMass(massText, itemRb.mass);
         }
         else
         {
             colRb.mass += 10f;
-            Print_Weight.PrintMass(massText, itemRb.mass);
-            Debug.Log($"İtemin ağırlığı 10 arttırıldı. Şimdi ki ağırlık {colRb.mass}");
+            PrintWeight.PrintMass(massText, itemRb.mass);
+            // Debug.Log($"İtemin ağırlığı 10 arttırıldı. Şimdi ki ağırlık {colRb.mass}");
         }
     }
 }

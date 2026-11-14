@@ -98,7 +98,6 @@ public class Input_Manager : MonoBehaviour
 
     private void Run(InputAction.CallbackContext context)
     {
-        Debug.Log("Koşuyorum");
         OnRunEvent?.Invoke(true);
     }
 
@@ -106,7 +105,6 @@ public class Input_Manager : MonoBehaviour
 
     private void StopRunning(InputAction.CallbackContext context)
     {
-        Debug.Log("Koşmuyorum");
         OnRunEvent?.Invoke(false);
     }
 

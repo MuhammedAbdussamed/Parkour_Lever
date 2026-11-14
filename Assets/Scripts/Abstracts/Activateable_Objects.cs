@@ -16,7 +16,6 @@ public abstract class Activateable_Objects : MonoBehaviour
         isActive = true;
         OnPowerEvent?.Invoke();
         OnAnimationEvent?.Invoke();
-        Debug.Log("Açıldı");
     }
 
     public virtual void TurnOff() { }
