@@ -8,6 +8,11 @@ public class GroundChecker : MonoBehaviour
     private bool onGround;
     public bool OnGround => onGround;
 
+    void Awake()
+    {
+        raycastDistance = 3f;
+    }
+
     void FixedUpdate()
     {
         GroundCheck();

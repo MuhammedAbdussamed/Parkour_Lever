@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     #region -------Functions-------
 
     /*-------- Read Values --------*/
+
     private void ReadMoveInputValue(Vector2 moveInputValue)
     {
         movementDirection = moveInputValue;
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /*---------- Movement ----------*/
+
     private void Move()
     {
 
@@ -104,9 +106,10 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         Debug.Log("Zıplıyor");
+
         if (groundChecker.OnGround)
         {
-            rb.AddForce(Vector3.up * playerStats.jumpPower * 1000, ForceMode.Force);
+            rb.AddForce(Vector3.up * playerStats.jumpPower, ForceMode.Impulse);
         }
     }
 
