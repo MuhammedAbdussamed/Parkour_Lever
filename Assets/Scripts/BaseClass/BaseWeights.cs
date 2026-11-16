@@ -9,13 +9,20 @@ public class BaseWeights : BaseInteractable
     public bool isHolding;                          // Objenin "tutuluyor mu ?" sorusunu cevaplar
     private const int objectMovingSpeed = 10;
 
-    // References
+    // Components
     private Rigidbody rb;
+    private AudioSource audio;
+
+    // References
     private TextMeshPro massText;
 
     private void Awake()
     {
+        // Component Assigns
         rb = GetComponent<Rigidbody>();
+        audio = GetComponent<AudioSource>();
+
+        // Reference Assigns
         massText = transform.Find("Mass_Text").GetComponent<TextMeshPro>();
     }
 
@@ -27,6 +34,11 @@ public class BaseWeights : BaseInteractable
     private void LateUpdate()
     {
         CatchMousePosition();
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        PlayFallSound(col);
     }
 
     #region ----- Functions -----
@@ -58,6 +70,17 @@ public class BaseWeights : BaseInteractable
     public override void InteractFunction()
     {
         HoldItem();
+    }
+
+    /*-----------------------------------*/
+
+    private void PlayFallSound(Collision col)
+    {
+        if (col.relativeVelocity.magnitude > 2f)            // Çarpışmadan önce ki göreceli hız !!!
+        {
+            float audioPower = rb.mass / 100;
+            audio.PlayOneShot(audio.clip, audioPower);
+        }
     }
 
     #endregion

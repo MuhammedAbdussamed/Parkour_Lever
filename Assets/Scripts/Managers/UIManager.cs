@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas playerUI;
     [SerializeField] private Canvas dynamicUI;
 
+    [Header("Images")]
+    [SerializeField] private UnityEngine.UI.Image darkScreen;
+
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI interactText;
 
@@ -38,6 +41,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SetStaminaBar();
+        OpenScreen();
     }
 
     #region ----- Functions -----
@@ -53,6 +57,17 @@ public class UIManager : MonoBehaviour
     {
         staminaBar.value = playerStats.stamina;
     }
+
+    /*-----------------------------------*/
+
+    private void OpenScreen()
+    {
+        float transitionDuration = 20f;
+        Color color = darkScreen.color;
+        color.a = Mathf.Lerp(darkScreen.color.a, 0, 1f / transitionDuration);
+        darkScreen.color = color;
+    }
+
 
     #endregion
 

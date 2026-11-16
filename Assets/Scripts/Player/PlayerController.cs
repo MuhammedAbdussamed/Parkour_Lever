@@ -105,8 +105,6 @@ public class PlayerController : MonoBehaviour
     /*---*/
     private void Jump()
     {
-        Debug.Log("Zıplıyor");
-
         if (groundChecker.OnGround)
         {
             rb.AddForce(Vector3.up * playerStats.jumpPower, ForceMode.Impulse);

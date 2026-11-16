@@ -2,16 +2,11 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    [Header("Raycast Settings")]
+    [Header("Raycast Ignoring Layers")]
     [SerializeField] private LayerMask raycastLayers;
-    private float raycastDistance;
+    [SerializeField] private float raycastDistance;
     private bool onGround;
     public bool OnGround => onGround;
-
-    void Awake()
-    {
-        raycastDistance = 3f;
-    }
 
     void FixedUpdate()
     {

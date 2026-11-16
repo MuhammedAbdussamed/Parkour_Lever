@@ -10,14 +10,14 @@ public class WeigthChanger : BaseInteractable
 
     void Awake()
     {
-        PrintWeight.PrintMass(massText, 0f);
+        massText.text = 0.ToString();
     }
 
     private void OnCollisionEnter(Collision col)
     {
         currentItem = col;
         itemRb = col.gameObject.GetComponent<Rigidbody>();
-        PrintWeight.PrintMass(massText, itemRb.mass);
+        massText.text = itemRb.mass.ToString();
         // Debug.Log($"Giren item : {col.gameObject.name}");
     }
 
@@ -26,7 +26,7 @@ public class WeigthChanger : BaseInteractable
         if (col == currentItem)
         {
             currentItem = null;
-            PrintWeight.PrintMass(massText, 0);
+            massText.text = 0.ToString();
         }
 
         // Debug.Log($"Çıkan item : {col.gameObject.name}");
@@ -42,16 +42,12 @@ public class WeigthChanger : BaseInteractable
     public virtual void ChangeWeight(Rigidbody colRb)
     {
         if (colRb.mass + 10f > 50f)
-        {
-            colRb.mass = (colRb.mass + 10f) - 50f;
-            PrintWeight.PrintMass(massText, itemRb.mass);
-        }
+        { colRb.mass = (colRb.mass + 10f) - 50f; }
+
         else
-        {
-            colRb.mass += 10f;
-            PrintWeight.PrintMass(massText, itemRb.mass);
-            // Debug.Log($"İtemin ağırlığı 10 arttırıldı. Şimdi ki ağırlık {colRb.mass}");
-        }
+        { colRb.mass += 10f; }
+
+        massText.text = itemRb.mass.ToString();
     }
 
     #endregion

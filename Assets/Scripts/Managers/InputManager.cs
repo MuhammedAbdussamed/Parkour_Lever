@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
     public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
     public event Action<bool> OnRunEvent;
     public event Action OnJumpEvent;
-    public event Action OnInteractionEvent;
+    public static event Action OnInteractionEvent;
 
     void OnEnable()
     {
@@ -61,6 +61,12 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         AssignInputs();
+        inputs.Disable();
+    }
+
+    void Start()
+    {
+        Invoke("EnableInputs", 3f);
     }
 
     #region --- Input Functions ---
@@ -125,14 +131,18 @@ public class InputManager : MonoBehaviour
 
     private void AssignInputs()
     {
-
         movementMap = inputs.FindActionMap("Movement");
         move = movementMap.FindAction("Move");
         turn = movementMap.FindAction("Turn");
         jump = movementMap.FindAction("Jump");
         interact = movementMap.FindAction("Interaction");
         run = movementMap.FindAction("Run");
+    }
 
+    /*---*/
+
+    private void EnableInputs()
+    {
         inputs.Enable();
     }
 

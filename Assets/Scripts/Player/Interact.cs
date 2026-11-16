@@ -7,7 +7,6 @@ public class Interact : MonoBehaviour
 {
     [Header("Raycast Layers")]
     [SerializeField] private LayerMask layers;
-    [SerializeField] private InputManager inputManager;
 
     // Events
     public event Action<bool> InteractTextEvent;
@@ -18,12 +17,12 @@ public class Interact : MonoBehaviour
 
     void OnEnable()
     {
-        inputManager.OnInteractionEvent += DetectObjectType;
+        InputManager.OnInteractionEvent += DetectObjectType;
     }
 
     void OnDisable()
     {
-        inputManager.OnInteractionEvent -= DetectObjectType;
+        InputManager.OnInteractionEvent -= DetectObjectType;
     }
 
     void Update()

@@ -5,9 +5,15 @@ public class MovingPlatforms : MonoBehaviour
     [Header("Patrol Points")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float speed;
+    private Rigidbody rb;
     private int patrolIndex;
 
-    void Update()
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
     {
         Patrol(patrolPoints);
     }
@@ -16,11 +22,11 @@ public class MovingPlatforms : MonoBehaviour
 
     void Patrol(Transform[] patrolPoints)
     {
-        transform.position = Vector3.MoveTowards(
+        rb.MovePosition(Vector3.MoveTowards(
             transform.position,
             patrolPoints[patrolIndex].position,
             speed * Time.deltaTime
-            );
+            ));
 
         float pointDistance = Vector3.Distance(transform.position, patrolPoints[patrolIndex].position);
 
