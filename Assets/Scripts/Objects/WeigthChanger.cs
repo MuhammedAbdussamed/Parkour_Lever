@@ -10,7 +10,7 @@ public class WeigthChanger : BaseInteractable
 
     void Awake()
     {
-        massText.text = 0.ToString();
+        massText.text = string.Empty;
     }
 
     private void OnCollisionEnter(Collision col)
@@ -26,7 +26,7 @@ public class WeigthChanger : BaseInteractable
         if (col == currentItem)
         {
             currentItem = null;
-            massText.text = 0.ToString();
+            massText.text = string.Empty;
         }
 
         // Debug.Log($"Çıkan item : {col.gameObject.name}");

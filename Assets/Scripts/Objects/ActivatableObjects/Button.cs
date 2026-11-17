@@ -15,18 +15,30 @@ public class Button : BaseActivatable
     {
         activationDuration -= Time.deltaTime;
         activationDuration = Mathf.Clamp(activationDuration, 0, defaultDurationValue);
-        TurnOff();
+        DurationTurnOff();
     }
 
     #region ----- Functions -----
 
-    public override void TurnOff()
+    private void DurationTurnOff()
     {
-        if (isActive && activationDuration < 0.15f)
+        if (!isActive)
+        { return; }
+
+        if (activationDuration < 0.15f)
         {
             isActive = false;
             InvokePowerEvent();
         }
+    }
+
+    /*-----------------------------------*/
+
+    public override void TurnOff()
+    {
+        isActive = false;
+        activationDuration = 0f;
+        InvokePowerEvent();
     }
 
     /*-----------------------------------*/

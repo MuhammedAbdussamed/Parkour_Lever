@@ -92,10 +92,21 @@ public class Door : MonoBehaviour
 
     private void SubscribeEvents(bool subscribe)  
     {
+        if (doorItems.Count <= 0) 
+        { 
+            Debug.Log("Kapıya hiç eleman atanmadı !");
+            return;
+        }
+
         if(subscribe)
         {
             foreach (BaseActivatable item in doorItems)
             {
+                if(item == null) 
+                { 
+                    Debug.Log("null eleman var !");
+                    return;
+                }
                 item.OnPowerEvent += OpenClose;
             }
         }
