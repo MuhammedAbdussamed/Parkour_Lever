@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    
+
     [Header("Object References")]
     [SerializeField] private List<BaseActivatable> doorItems = new List<BaseActivatable>();
     [SerializeField] private Transform[] doorParts;
@@ -104,7 +104,7 @@ public class Door : MonoBehaviour
             {
                 if(item == null) 
                 { 
-                    Debug.Log("null eleman var !");
+                    Debug.Log($"{this.gameObject.name} objesinde null eleman var !");
                     return;
                 }
                 item.OnPowerEvent += OpenClose;

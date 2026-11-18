@@ -26,6 +26,12 @@ public abstract class BaseActivatable : MonoBehaviour
 
     /*-----------------------------------*/
 
+    protected void PlayStateChangeSound()
+    {
+
+    }
+
+    /*-----------------------------------*/
     protected void InvokePowerEvent()
     {
         OnPowerEvent?.Invoke();

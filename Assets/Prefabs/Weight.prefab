@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6073792988139963921}
   m_Layer: 9
   m_Name: Weight
-  m_TagString: Untagged
+  m_TagString: Weight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117691369192506894}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 79f548cf2e9f8a84baf44f8a7671388c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
