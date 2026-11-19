@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7766724310208536557}
   - component: {fileID: 2327327955990034789}
   - component: {fileID: 5795966112671888431}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 8104672887485838368}
   - component: {fileID: 6628982595331740354}
   - component: {fileID: 5518026804548411810}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 09edab9caf83dac49924e023a513b462, type: 2}
+  - {fileID: 2100000, guid: 77584ea08e9c3544d825a8536bd1832e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 3486913464366498419}
   - component: {fileID: 2962436859752779196}
   - component: {fileID: 5145477598823214617}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3,7 +3,7 @@ using UnityEngine;
 public class OpenCloseSoundEffect : MonoBehaviour
 {
     // Components
-    private BaseActivatable objectScript;
+    private BaseActivationSource objectScript;
     private Animator objectAnimator;
 
     void Update()

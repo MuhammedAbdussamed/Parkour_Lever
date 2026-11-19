@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BaseInteractable : MonoBehaviour
+public interface BaseInteractable
 {
-    public virtual void InteractFunction() { }
+    void InteractFunction() { }
 }

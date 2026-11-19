@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Button : BaseActivatable
+public class Button : BaseActivationSource
 {
     public float activationDuration;
     public float defaultDurationValue;

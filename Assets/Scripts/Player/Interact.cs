@@ -35,7 +35,7 @@ public class Interact : MonoBehaviour
         if (interactingObject == null)
         { return; }
 
-        if (interactingObject.TryGetComponent<BaseActivatable>(out var activetableScript))
+        if (interactingObject.TryGetComponent<BaseActivationSource>(out var activetableScript))
         {
             InteractActivetableObjects(activetableScript);
         }
@@ -46,7 +46,7 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void InteractActivetableObjects(BaseActivatable objectScript)
+    private void InteractActivetableObjects(BaseActivationSource objectScript)
     {
         if (objectScript.IsActive)
         {

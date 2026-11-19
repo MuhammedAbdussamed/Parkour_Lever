@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class BaseActivatable : MonoBehaviour
+public abstract class BaseActivationSource : MonoBehaviour
 {
     public bool isActive;
 

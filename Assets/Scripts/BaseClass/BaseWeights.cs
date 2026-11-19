@@ -2,16 +2,17 @@ using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
-public class BaseWeights : BaseInteractable
+public class BaseWeights : MonoBehaviour, BaseInteractable
 {
     // Variables
     public bool isHolding;                          // Objenin "tutuluyor mu ?" sorusunu cevaplar
     private const int objectMovingSpeed = 10;
 
     // Components
-    private Rigidbody rb;
-    private AudioSource audio;
+    private Rigidbody weightRb;
+    private AudioSource weightAudio;
 
     // References
     private TextMeshPro massText;
@@ -19,8 +20,8 @@ public class BaseWeights : BaseInteractable
     private void Awake()
     {
         // Component Assigns
-        rb = GetComponent<Rigidbody>();
-        audio = GetComponent<AudioSource>();
+        weightRb = GetComponent<Rigidbody>();
+        weightAudio = GetComponent<AudioSource>();
 
         // Reference Assigns
         massText = transform.Find("Mass_Text").GetComponent<TextMeshPro>();
@@ -28,7 +29,7 @@ public class BaseWeights : BaseInteractable
 
     public void Update()
     {
-        massText.text = rb.mass.ToString();
+        massText.text = weightRb.mass.ToString();
     }
 
     private void LateUpdate()
@@ -46,7 +47,7 @@ public class BaseWeights : BaseInteractable
     private void HoldItem()
     {
         isHolding = !isHolding;
-        rb.isKinematic = isHolding;
+        weightRb.isKinematic = isHolding;
     }
 
     /*-----------------------------------*/
@@ -67,7 +68,7 @@ public class BaseWeights : BaseInteractable
 
     /*-----------------------------------*/
 
-    public override void InteractFunction()
+    public void InteractFunction()
     {
         HoldItem();
     }
@@ -78,8 +79,8 @@ public class BaseWeights : BaseInteractable
     {
         if (col.relativeVelocity.magnitude > 2f)            // Çarpışmadan önce ki göreceli hız !!!
         {
-            float audioPower = rb.mass / 100;
-            audio.PlayOneShot(audio.clip, audioPower);
+            float audioPower = weightRb.mass / 100;
+            weightAudio.PlayOneShot(weightAudio.clip, audioPower);
         }
     }
 

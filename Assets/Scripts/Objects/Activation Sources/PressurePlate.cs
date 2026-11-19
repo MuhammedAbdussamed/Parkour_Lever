@@ -5,10 +5,11 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class PressurePlate : BaseActivatable
+public class PressurePlate : BaseActivationSource
 {
     [Header("Mass Activate Value")]
     [SerializeField] private int massActivateValue;
+    [SerializeField] private CompareSituation compareSit;
     private TextMeshPro massText;
 
     // Components
@@ -16,7 +17,7 @@ public class PressurePlate : BaseActivatable
 
     // Veights
     private List<GameObject> weights = new List<GameObject>();
-    public float weightSum;
+    private float weightSum;
 
     void Awake()
     {
@@ -31,7 +32,7 @@ public class PressurePlate : BaseActivatable
     {
         if (col.gameObject.CompareTag("Weight"))            // Objenin tagi ağırlıksa
         {
-            weights.Add(col.gameObject);                               // Ağırlık listesine ekle
+            weights.Add(col.gameObject);                    // Ağırlık listesine ekle
             CalculateSumWeight();                           // Ağırlık toplamını hesapla
             CheckActivateMass();                            // Ağırlık toplamına göre plakayı aç ya da kapat.
         }
@@ -49,16 +50,47 @@ public class PressurePlate : BaseActivatable
 
     #region ----- Functions -----
 
+    private bool CompareMass()
+    {
+        switch (compareSit)
+        {
+            case CompareSituation.GreaterThan:
+                return weightSum > massActivateValue;
+                break;
+
+            case CompareSituation.LessThan:
+                return weightSum < massActivateValue;
+                break;
+
+            case CompareSituation.Equal:
+                return weightSum == massActivateValue;
+                break;
+
+            case CompareSituation.GreaterThanOrEqual:
+                return weightSum >= massActivateValue;
+                break;
+
+            case CompareSituation.LessThanOrEqual:
+                return weightSum <= massActivateValue;
+                break;
+
+            default:
+                return false;
+                break;
+        }
+    }
+
+    /*------------------------------*/
 
     private void CheckActivateMass()
     {
-        if (weightSum >= massActivateValue && !isActive)
+        if (CompareMass() && !isActive)
         {
             TurnOn();
             meshRenderer.material.color = Color.green;
             Debug.Log("Basınç Plakası Açık !");
         }
-        else if (weightSum < massActivateValue && isActive)
+        else if (!CompareMass() && isActive)
         {
             TurnOff();
             meshRenderer.material.color = Color.red;
@@ -85,6 +117,17 @@ public class PressurePlate : BaseActivatable
         isActive = false;
         InvokePowerEvent();
     }
-    
+
+    /*-----------------------------*/
+
+    private enum CompareSituation
+    {
+        GreaterThan,
+        LessThan,
+        Equal,
+        GreaterThanOrEqual,
+        LessThanOrEqual
+    }
+
     #endregion
 }

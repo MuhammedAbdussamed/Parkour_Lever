@@ -197,7 +197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0
+  m_text: '
 
 '
   m_isRightToLeft: 0
@@ -285,7 +285,6 @@ GameObject:
   - component: {fileID: 1708840079431695244}
   - component: {fileID: 8650042008034712865}
   - component: {fileID: 8260440099134687938}
-  - component: {fileID: 360324353734561795}
   m_Layer: 9
   m_Name: Weigher
   m_TagString: Untagged
@@ -365,19 +364,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &360324353734561795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3943698648268824174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 003262c2a21ccfc4aa8c3785c612906d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weigth_Changer
-  massText: {fileID: 8108742056230544553}
 --- !u!1 &5131906108905882942
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +455,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003262c2a21ccfc4aa8c3785c612906d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeigthChanger
+  activationSources:
+  - {fileID: 0}
+  isActive: 0
   massText: {fileID: 8108742056230544553}
 --- !u!1 &5590799527041587457
 GameObject:
@@ -481,7 +470,6 @@ GameObject:
   - component: {fileID: 7341982813525273389}
   - component: {fileID: 5929285938025083196}
   - component: {fileID: 2422474824393502745}
-  - component: {fileID: 283512594980458915}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -561,16 +549,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &283512594980458915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5590799527041587457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 003262c2a21ccfc4aa8c3785c612906d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weigth_Changer
-  massText: {fileID: 8108742056230544553}
