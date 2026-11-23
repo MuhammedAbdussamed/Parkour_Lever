@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
 
     private void SetStaminaBar()
     {
-        staminaBar.value = playerStats.stamina;
+        staminaBar.value = playerStats.currentStamina;
     }
 
     /*-----------------------------------*/

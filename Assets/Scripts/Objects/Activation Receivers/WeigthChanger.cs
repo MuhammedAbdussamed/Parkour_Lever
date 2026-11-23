@@ -12,6 +12,16 @@ public class WeigthChanger : BaseActivationReceivers, BaseInteractable
     private GameObject currentItem;
     private Rigidbody itemRb;
 
+    // Variables
+    private int massAddingValue;
+    private int maxMass;
+
+    private void Awake()
+    {
+        massAddingValue = 10;
+        maxMass = 50;
+    }
+
     private void Start()
     {
         SetActivate();
@@ -39,11 +49,11 @@ public class WeigthChanger : BaseActivationReceivers, BaseInteractable
 
     public virtual void ChangeWeight(Rigidbody colRb)
     {
-        if (colRb.mass + 10f > 50f)
-        { colRb.mass = (colRb.mass + 10f) - 50f; }
+        if (colRb.mass + massAddingValue > maxMass)
+        { colRb.mass = (colRb.mass + massAddingValue) - maxMass; }
 
         else
-        { colRb.mass += 10f; }
+        { colRb.mass += massAddingValue; }
 
         massText.text = colRb.mass.ToString();
     }

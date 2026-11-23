@@ -21,10 +21,7 @@ public class Door : BaseActivationReceivers
 
         defaultPartPositions = new Vector3[doorParts.Length];
 
-        for (int i = 0; i < doorParts.Length; i++)
-        {
-            defaultPartPositions[i] = doorParts[i].localPosition;
-        }
+        AssignDoorPartsPos();
     }
 
     void Update()
@@ -51,10 +48,20 @@ public class Door : BaseActivationReceivers
                 targetPosition.z += (i == 0 ? slideDistance : -slideDistance);
 
             doorParts[i].localPosition = Vector3.MoveTowards(
-            doorParts[i].localPosition,
-            targetPosition,
-            openingSpeed * Time.deltaTime
+                doorParts[i].localPosition,
+                targetPosition,
+                openingSpeed * Time.deltaTime
             );
+        }
+    }
+
+    /*-------------------------------------------*/
+
+    private void AssignDoorPartsPos()
+    {
+        for (int i = 0; i < doorParts.Length; i++)
+        {
+            defaultPartPositions[i] = doorParts[i].localPosition;
         }
     }
 

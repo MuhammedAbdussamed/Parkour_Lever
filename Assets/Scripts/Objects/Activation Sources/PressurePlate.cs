@@ -56,27 +56,21 @@ public class PressurePlate : BaseActivationSource
         {
             case CompareSituation.GreaterThan:
                 return weightSum > massActivateValue;
-                break;
-
+                
             case CompareSituation.LessThan:
                 return weightSum < massActivateValue;
-                break;
 
             case CompareSituation.Equal:
                 return weightSum == massActivateValue;
-                break;
 
             case CompareSituation.GreaterThanOrEqual:
                 return weightSum >= massActivateValue;
-                break;
 
             case CompareSituation.LessThanOrEqual:
                 return weightSum <= massActivateValue;
-                break;
 
             default:
                 return false;
-                break;
         }
     }
 
@@ -88,13 +82,11 @@ public class PressurePlate : BaseActivationSource
         {
             TurnOn();
             meshRenderer.material.color = Color.green;
-            Debug.Log("Basınç Plakası Açık !");
         }
         else if (!CompareMass() && isActive)
         {
             TurnOff();
             meshRenderer.material.color = Color.red;
-            Debug.Log("Basınç Plakası Kapalı !");
         }
     }
 

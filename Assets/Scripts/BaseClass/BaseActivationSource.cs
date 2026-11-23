@@ -22,14 +22,11 @@ public abstract class BaseActivationSource : MonoBehaviour
 
     /*-----------------------------------*/
 
-    public virtual void TurnOff() { }
+    public virtual void TurnOff() {}
 
     /*-----------------------------------*/
 
-    protected void PlayStateChangeSound()
-    {
-
-    }
+    protected void PlayStateChangeSound() {}
 
     /*-----------------------------------*/
     protected void InvokePowerEvent()

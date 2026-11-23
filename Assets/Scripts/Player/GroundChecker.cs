@@ -3,7 +3,7 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour
 {
     [Header("Raycast Ignoring Layers")]
-    [SerializeField] private LayerMask raycastLayers;
+    [SerializeField] private LayerMask raycastIgnLayers;
     [SerializeField] private float raycastDistance;
     private bool onGround;
     public bool OnGround => onGround;
@@ -17,7 +17,7 @@ public class GroundChecker : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit ,raycastDistance,~raycastLayers)) 
+        if (Physics.Raycast(transform.position, -transform.up, out hit ,raycastDistance,~raycastIgnLayers)) 
         {
             onGround = true;
             Debug.DrawLine(

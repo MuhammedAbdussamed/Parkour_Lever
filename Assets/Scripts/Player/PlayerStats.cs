@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [Header("Stats")]
+    [Header("Movement Stats")]
     [SerializeField] internal float characterSpeed;
     [SerializeField] internal float jumpPower;
-    [SerializeField] internal float stamina;
+    [SerializeField] internal float maxSpeed;
 
-    internal float staminaDecreasingValue;
-    internal float staminaIncreasingValue;
+    [Header("Stamina")]
+    [SerializeField] internal float currentStamina;
+    [SerializeField] internal float maxStamina;
+    [SerializeField] internal float staminaDecreasingValue;
+    [SerializeField] internal float staminaIncreasingValue;
+    [SerializeField] internal float stayTiredDuration;
     internal float defaultCharacterSpeed;
     internal bool isTired;
 
@@ -22,6 +26,6 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        stamina = Mathf.Clamp(stamina, 0, 100);
+        currentStamina = Mathf.Clamp(currentStamina, 0, 100);
     }
 }

@@ -4,11 +4,14 @@ public class Button : BaseActivationSource
 {
     public float activationDuration;
     public float defaultDurationValue;
+    private float turnOffThreshold;
 
     public void Awake()
     {
         defaultDurationValue = activationDuration;
         activationDuration = 0f;
+
+        turnOffThreshold = 0.15f;
     }
 
     public void Update()
@@ -25,7 +28,7 @@ public class Button : BaseActivationSource
         if (!isActive)
         { return; }
 
-        if (activationDuration < 0.15f)
+        if (activationDuration < turnOffThreshold)
         {
             isActive = false;
             InvokePowerEvent();

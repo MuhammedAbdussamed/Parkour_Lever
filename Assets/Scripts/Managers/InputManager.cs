@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     [Header("Inputs")]
     [SerializeField] private InputActionAsset inputs;
     [SerializeField] private float mouseSensitivity;
+    [SerializeField] private float enableInputDelay;
     public float MouseSensitivity => mouseSensitivity;
 
     // Action Maps
@@ -66,7 +67,7 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        Invoke("EnableInputs", 3f);
+        Invoke("EnableInputs", enableInputDelay);
     }
 
     #region --- Input Functions ---

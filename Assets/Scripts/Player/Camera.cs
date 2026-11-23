@@ -6,7 +6,6 @@ public class Camera : MonoBehaviour
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private InputManager inputManager;
     
-
     // Variables
     private float turnDirection;
     private float xRotation;
@@ -24,11 +23,10 @@ public class Camera : MonoBehaviour
         inputManager.OnTurnEvent -= ReadMouseValue;
     }
 
-    void Update()
+    void LateUpdate()
     {
         TurnUpDown();
         cameraPosition = transform.position + new Vector3(0, 0, 0);
-        
     }
 
     private void ReadMouseValue(Vector2 mouseTurnInput)

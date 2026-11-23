@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-        if (!isShiftPressed || playerStats.stamina < 0.1f)
+        if (!isShiftPressed || playerStats.currentStamina < 0.1f)
         {
             playerStats.characterSpeed = Mathf.Lerp(
                 playerStats.characterSpeed,
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             playerStats.characterSpeed = Mathf.Lerp(
                 playerStats.characterSpeed,
-                playerStats.defaultCharacterSpeed * 1.5f,
+                playerStats.defaultCharacterSpeed * playerStats.maxSpeed / playerStats.defaultCharacterSpeed,
                 1f
             );
 
@@ -151,11 +151,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator IncreaseStamina(int valueSign)      // +1 = Stamina artar. -1 = Stamina azalır
     {
         isResting = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(playerStats.stayTiredDuration);
 
-        while (playerStats.stamina < 100f && !isShiftPressed)
+        while (playerStats.currentStamina < playerStats.maxStamina && !isShiftPressed)
         {
-            playerStats.stamina += Time.deltaTime * playerStats.staminaIncreasingValue;
+            playerStats.currentStamina += Time.deltaTime * playerStats.staminaIncreasingValue;
             yield return null;
         }
 
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
     private void DecreaseStamina()
     {
-        playerStats.stamina -= Time.deltaTime * playerStats.staminaIncreasingValue;
+        playerStats.currentStamina -= Time.deltaTime * playerStats.staminaIncreasingValue;
     }
 
     #endregion

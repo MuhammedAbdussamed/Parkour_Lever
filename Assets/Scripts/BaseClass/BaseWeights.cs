@@ -9,6 +9,9 @@ public class BaseWeights : MonoBehaviour, BaseInteractable
     // Variables
     public bool isHolding;                          // Objenin "tutuluyor mu ?" sorusunu cevaplar
     private const int objectMovingSpeed = 10;
+    private float objScreenDistance;
+    private float soundValueThreshold;
+    private float soundValueMultiplier;
 
     // Components
     private Rigidbody weightRb;
@@ -25,6 +28,11 @@ public class BaseWeights : MonoBehaviour, BaseInteractable
 
         // Reference Assigns
         massText = transform.Find("Mass_Text").GetComponent<TextMeshPro>();
+
+        // Variables
+        objScreenDistance = 2f;
+        soundValueThreshold = 2f;
+        soundValueMultiplier = 100f;
     }
 
     public void Update()
@@ -57,7 +65,7 @@ public class BaseWeights : MonoBehaviour, BaseInteractable
         if (!isHolding) return;
 
         Transform cam = UnityEngine.Camera.main.transform;
-        Vector3 targetPosition = cam.position + cam.forward * 2f;
+        Vector3 targetPosition = cam.position + cam.forward * objScreenDistance;
 
         transform.position = Vector3.Lerp(
             transform.position,
@@ -77,9 +85,9 @@ public class BaseWeights : MonoBehaviour, BaseInteractable
 
     private void PlayFallSound(Collision col)
     {
-        if (col.relativeVelocity.magnitude > 2f)            // Çarpışmadan önce ki göreceli hız !!!
+        if (col.relativeVelocity.magnitude > soundValueThreshold)            // Çarpışmadan önce ki göreceli hız !!!
         {
-            float audioPower = weightRb.mass / 100;
+            float audioPower = weightRb.mass / soundValueMultiplier;        // Sesi bu değişkenle küçülttük
             weightAudio.PlayOneShot(weightAudio.clip, audioPower);
         }
     }
