@@ -14,6 +14,7 @@ public class PressurePlate : BaseActivationSource
 
     // Components
     private MeshRenderer meshRenderer;
+    private Material baseMaterial;
 
     // Veights
     private List<GameObject> weights = new List<GameObject>();
@@ -24,6 +25,10 @@ public class PressurePlate : BaseActivationSource
         // Assigns
         meshRenderer = GetComponent<MeshRenderer>();
         massText = GetComponentsInChildren<TextMeshPro>(true)[0];       // Child objectlerde ki textmeshpro componentini içeren İLK objeyi al
+
+        // Materials
+        baseMaterial = meshRenderer.materials[1];
+        baseMaterial.color = Color.red;
 
         massText.text = massActivateValue.ToString();
     }
@@ -81,12 +86,12 @@ public class PressurePlate : BaseActivationSource
         if (CompareMass() && !isActive)
         {
             TurnOn();
-            meshRenderer.material.color = Color.green;
+            baseMaterial.color = Color.green;
         }
         else if (!CompareMass() && isActive)
         {
             TurnOff();
-            meshRenderer.material.color = Color.red;
+            baseMaterial.color = Color.red;
         }
     }
 

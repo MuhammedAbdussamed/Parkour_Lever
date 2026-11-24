@@ -26,6 +26,6 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        currentStamina = Mathf.Clamp(currentStamina, 0, 100);
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
     }
 }
