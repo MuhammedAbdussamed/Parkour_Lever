@@ -8,27 +8,42 @@ public class Interact : MonoBehaviour
     [Header("Raycast Layers")]
     [SerializeField] private LayerMask layers;
 
+    [Header("Interactions Stats")]
+    [SerializeField] private float objectTurnSpeed;
+    private float objectTurnAngle;
+
     // Events
     public event Action<bool> InteractTextEvent;
 
     // Variables
     private Collider interactingObject;
     private bool wasInteracting;
+    private bool isObjTurning;
 
     void OnEnable()
     {
         InputManager.OnInteractionEvent += DetectObjectType;
+        InputManager.OnTurnObjectEvent += CheckObjTurning;
     }
 
     void OnDisable()
     {
         InputManager.OnInteractionEvent -= DetectObjectType;
+        InputManager.OnTurnObjectEvent -= CheckObjTurning;
+    }
+
+    void Awake()
+    {
+        objectTurnAngle = 35f;
     }
 
     void Update()
     {
         interactingObject = SendRaycastToMouse();
+        TurnObject();
     }
+
+    #region ----- Functions -----
 
     private void DetectObjectType()
     {
@@ -46,6 +61,8 @@ public class Interact : MonoBehaviour
         }
     }
 
+    /*------------------------------------------*/
+
     private void InteractActivetableObjects(BaseActivationSource objectScript)
     {
         if (objectScript.IsActive)
@@ -58,6 +75,33 @@ public class Interact : MonoBehaviour
             objectScript.TurnOn();
         }
     }
+
+    /*------------------------------------------*/
+
+    private void TurnObject()
+    {
+        if (wasInteracting && isObjTurning)
+        {
+            Vector3 currentRotation = interactingObject.transform.eulerAngles;
+
+            currentRotation.y = Mathf.MoveTowards(
+                currentRotation.y,
+                currentRotation.y + objectTurnAngle,
+                objectTurnSpeed
+                );
+
+            interactingObject.transform.eulerAngles = currentRotation;
+        }
+    }
+
+    /*------------------------------------------*/
+
+    private void CheckObjTurning(bool isTurning)
+    {
+        isObjTurning = isTurning;
+    }
+
+    /*------------------------------------------*/
 
     private Collider SendRaycastToMouse()
     {
@@ -88,4 +132,6 @@ public class Interact : MonoBehaviour
             return null;                                // Çarpmadı ve etkileşimde değildi. ( Default durum )
         }
     }
+
+    #endregion
 }

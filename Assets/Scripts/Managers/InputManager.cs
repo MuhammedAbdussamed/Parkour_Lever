@@ -19,44 +19,24 @@ public class InputManager : MonoBehaviour
     private InputAction jump;
     private InputAction interact;
     private InputAction run;
+    private InputAction turnObject;
 
     // Events
     public event Action<Vector2> OnMoveEvent;   // Public event kapsülleme örneğidir
     public event Action<Vector2> OnTurnEvent;   // Diğer scriptler Invoke edemez
     public event Action<bool> OnRunEvent;
     public event Action OnJumpEvent;
+    public static event Action<bool> OnTurnObjectEvent;
     public static event Action OnInteractionEvent;
 
     void OnEnable()
     {
-        move.performed += OnMovePerformed;
-        move.canceled += OnMoveCanceled;
-
-        turn.performed += ReadMouseInput;
-        turn.canceled += StopTurning;
-
-        interact.performed += CheckInteractions;
-
-        run.performed += Run;
-        run.canceled += StopRunning;
-
-        jump.performed += OnJumpInput;
+        AssignInputToEvents(true);
     }
 
     void OnDisable()
     {
-        move.performed -= OnMovePerformed;
-        move.canceled -= OnMoveCanceled;
-
-        turn.performed -= ReadMouseInput;
-        turn.canceled -= StopTurning;
-
-        interact.performed -= CheckInteractions;
-
-        run.performed -= Run;
-        run.canceled -= StopRunning;
-
-        jump.performed -= OnJumpInput;
+        AssignInputToEvents(false);
     }
 
     void Awake()
@@ -121,6 +101,18 @@ public class InputManager : MonoBehaviour
         OnInteractionEvent?.Invoke();
     }
 
+    /*---*/
+
+    private void TurnObject(InputAction.CallbackContext context)
+    {
+        OnTurnObjectEvent?.Invoke(true);
+    }
+
+    private void StopTurnObject(InputAction.CallbackContext context)
+    {
+        OnTurnObjectEvent?.Invoke(false);
+    }
+
     /*------------ Jump --------------*/
 
     private void OnJumpInput(InputAction.CallbackContext context)
@@ -138,6 +130,50 @@ public class InputManager : MonoBehaviour
         jump = movementMap.FindAction("Jump");
         interact = movementMap.FindAction("Interaction");
         run = movementMap.FindAction("Run");
+        turnObject = movementMap.FindAction("TurnObject");
+    }
+
+    /*---*/
+
+    private void AssignInputToEvents(bool assign)
+    {
+        if (assign)
+        {
+            move.performed += OnMovePerformed;
+            move.canceled += OnMoveCanceled;
+
+            turn.performed += ReadMouseInput;
+            turn.canceled += StopTurning;
+
+            interact.performed += CheckInteractions;
+
+            run.performed += Run;
+            run.canceled += StopRunning;
+
+            jump.performed += OnJumpInput;
+
+            turnObject.started += TurnObject;
+            turnObject.canceled += StopTurnObject;
+        }
+
+        else
+        {
+            move.performed -= OnMovePerformed;
+            move.canceled -= OnMoveCanceled;
+
+            turn.performed -= ReadMouseInput;
+            turn.canceled -= StopTurning;
+
+            interact.performed -= CheckInteractions;
+
+            run.performed -= Run;
+            run.canceled -= StopRunning;
+
+            jump.performed -= OnJumpInput;
+
+            turnObject.performed -= TurnObject;
+            turnObject.canceled -= StopTurnObject;
+        }
     }
 
     /*---*/

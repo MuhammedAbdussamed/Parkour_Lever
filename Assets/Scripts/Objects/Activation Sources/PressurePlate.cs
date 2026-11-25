@@ -11,6 +11,7 @@ public class PressurePlate : BaseActivationSource
     [SerializeField] private int massActivateValue;
     [SerializeField] private CompareSituation compareSit;
     private TextMeshPro massText;
+    private string compareSign;
 
     // Components
     private MeshRenderer meshRenderer;
@@ -30,7 +31,8 @@ public class PressurePlate : BaseActivationSource
         baseMaterial = meshRenderer.materials[1];
         baseMaterial.color = Color.red;
 
-        massText.text = massActivateValue.ToString();
+        CompareMass();
+        PrintMassActValue();
     }
 
     void OnCollisionEnter(Collision col)
@@ -60,18 +62,23 @@ public class PressurePlate : BaseActivationSource
         switch (compareSit)
         {
             case CompareSituation.GreaterThan:
+                compareSign = "> ";
                 return weightSum > massActivateValue;
                 
             case CompareSituation.LessThan:
+                compareSign = "< ";
                 return weightSum < massActivateValue;
 
             case CompareSituation.Equal:
+                compareSign = "= ";
                 return weightSum == massActivateValue;
 
             case CompareSituation.GreaterThanOrEqual:
+                compareSign = ">= ";
                 return weightSum >= massActivateValue;
 
             case CompareSituation.LessThanOrEqual:
+                compareSign = "<= ";
                 return weightSum <= massActivateValue;
 
             default:
@@ -113,6 +120,13 @@ public class PressurePlate : BaseActivationSource
     {
         isActive = false;
         InvokePowerEvent();
+    }
+
+    /*-----------------------------*/
+
+    private void PrintMassActValue()
+    {
+        massText.text = compareSign + massActivateValue.ToString();
     }
 
     /*-----------------------------*/
