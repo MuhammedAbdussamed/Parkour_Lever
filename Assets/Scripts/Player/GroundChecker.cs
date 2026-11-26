@@ -17,22 +17,23 @@ public class GroundChecker : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit ,raycastDistance,~raycastIgnLayers)) 
+        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance, ~raycastIgnLayers))
         {
             onGround = true;
+            Debug.Log("Yerdeyim");
             Debug.DrawLine(
-            transform.position,
-            transform.position - transform.up * raycastDistance,
-            Color.green
+                transform.position,
+                transform.position - transform.up * raycastDistance,
+                Color.green
             );
         }
         else
         {
             onGround = false;
             Debug.DrawLine(
-            transform.position,
-            transform.position - transform.up * raycastDistance,
-            Color.red
+                transform.position,
+                transform.position - transform.up * raycastDistance,
+                Color.red
             );
         }
     }

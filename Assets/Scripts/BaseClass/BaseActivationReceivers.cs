@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BaseActivationReceivers : MonoBehaviour
 {
-    [Header("Activation Sources ( Optinal for Weight Changer !")]
+    [Header("Activation Sources ( Optinal )")]
     [SerializeField] protected List<BaseActivationSource> activationSources = new List<BaseActivationSource>();
 
     [Header("Properties")]

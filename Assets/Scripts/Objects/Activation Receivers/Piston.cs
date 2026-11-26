@@ -5,7 +5,7 @@ public class Piston : BaseActivationReceivers
     [Header("Piston Parts")]
     [SerializeField] private Transform pistonPlate;
     [SerializeField] private Transform channel;
-    [SerializeField] private Transform body;
+    [SerializeField] private Transform root;
 
     [Header("Piston Stats")]
     [SerializeField] private float slideDistance;
@@ -74,7 +74,7 @@ public class Piston : BaseActivationReceivers
 
     private void RePositionChannel()
     {
-        float targetPosZ = (body.localPosition.z + pistonPlate.localPosition.z) / 2;
+        float targetPosZ = (root.localPosition.z + pistonPlate.localPosition.z) / 2;
 
         float newChannelZValue = Mathf.MoveTowards(
             channel.localPosition.z,

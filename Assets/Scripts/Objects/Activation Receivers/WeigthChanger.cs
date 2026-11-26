@@ -8,20 +8,16 @@ public class WeigthChanger : BaseActivationReceivers, BaseInteractable
     [Header("Mass Value Screen text")]
     [SerializeField] private TextMeshPro massText;
 
+    [Header("Mass Properties")]
+    [SerializeField] private int massAddingValue;
+    [SerializeField] private int maxMass;
+
     // Components
     private GameObject currentItem;
     private Rigidbody itemRb;
 
     // Variables
-    private int massAddingValue;
-    private int maxMass;
-
-    private void Awake()
-    {
-        massAddingValue = 10;
-        maxMass = 50;
-    }
-
+    
     private void Start()
     {
         SetActivate();
