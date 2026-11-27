@@ -61,8 +61,8 @@ public class Piston : BaseActivationReceivers
 
         Vector3 currentScale = channel.localScale;
 
-        currentScale.z = Mathf.MoveTowards(
-            currentScale.z,
+        currentScale.x = Mathf.MoveTowards(
+            currentScale.x,
             targetScale,
             slideSpeed * Time.fixedDeltaTime
             );
